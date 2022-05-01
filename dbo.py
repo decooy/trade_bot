@@ -15,6 +15,22 @@ class database:
                   );
                """)
         self.sqlite_connection.commit()
+        self.cursor.execute("""CREATE TABLE IF NOT EXISTS signals(
+                          id SERIAL,
+                          token TEXT,
+                          shortlong TEXT,
+                          entry_min decimal(8,2) default 0 not null,
+                          entry_max decimal(8,2) default 0 not null,
+                          goal decimal(8,2) default 0 not null,
+                          stop decimal(8,2) default 0 not null,
+                          percentstop decimal(8,2) default 0 not null
+                          );
+                       """)
+        self.sqlite_connection.commit()
+        self.cursor.execute("""CREATE TABLE IF NOT EXISTS admins(
+                                  id BIGINT);
+                               """)
+        self.sqlite_connection.commit()
 
     def check_user(self, id):
         command = f"""SELECT * FROM users WHERE id={id}"""
@@ -67,3 +83,16 @@ class database:
         command = f"""UPDATE users SET subscription=TRUE WHERE id={id}"""
         self.cursor.execute(command)
         self.sqlite_connection.commit()
+
+    def isadmin(self, id):
+        command = f"""SELECT id FROM admins WHERE id={id}"""
+        self.cursor.execute(command)
+        if self.cursor.fetchone() is None:
+            return False
+        else:
+            return True
+
+    def get_users(self):
+        command = f"""SELECT * FROM users WHERE subscription=TRUE"""
+        self.cursor.execute(command)
+        return self.cursor.fetchall()
