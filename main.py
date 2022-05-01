@@ -3,13 +3,13 @@ from telebot.types import ReplyKeyboardMarkup, KeyboardButton
 import os
 import dbo as db_
 
-API_TOKEN = '5162882119:AAEzXwekU3IKXWGJdt9BEkxh4yzk1pLN0TE'
+API_TOKEN = os.getenv('token')
 
 bot = telebot.TeleBot(API_TOKEN)
 db = db_.database()
 
 user_dict = {}
-channel = -1001263015690
+channel = -1001535772604
 
 
 class User:
