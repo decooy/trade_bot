@@ -11,7 +11,6 @@ db = db_.database()
 user_dict = {}
 channel = -1001263015690
 
-
 class User:
     def __init__(self, id):
         self.id = id

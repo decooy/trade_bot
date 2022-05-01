@@ -2,7 +2,6 @@ import psycopg2
 import psycopg2.extras
 
 
-
 class database:
     def __init__(self):
         self.sqlite_connection = psycopg2.connect(dbname='postgres', user='postgres', password='1q2w3e123qwe',
